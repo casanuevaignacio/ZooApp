@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -45,10 +46,6 @@ android {
         viewBinding = true
         compose = true
     }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
 }
 
 dependencies {
@@ -74,7 +71,6 @@ dependencies {
     // Room Database
     implementation("androidx.room:room-runtime:2.4.3")
     implementation("androidx.room:room-ktx:2.4.3")
-    implementation(libs.androidx.junit.ktx)
     ksp("androidx.room:room-compiler:2.4.3") // CAMBIADO
 
     // Retrofit & Networking
