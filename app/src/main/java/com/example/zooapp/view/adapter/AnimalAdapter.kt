@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.zooapp.data.local.AnimalEntity
 import com.example.zooapp.databinding.ItemAnimalBinding
+import com.example.zooapp.utils.AnimalImageMapper
 
 class AnimalAdapter(private val onClick: (AnimalEntity) -> Unit) :
     RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder>() {
@@ -32,13 +33,13 @@ class AnimalAdapter(private val onClick: (AnimalEntity) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(animal: AnimalEntity, onClick: (AnimalEntity) -> Unit) {
-            // IDs actualizados según tu XML
             binding.txtNombreAnimal.text = animal.nombre
             binding.txtEspecie.text = animal.especie
 
+            val imageUrl = AnimalImageMapper.getReliableImageUrl(animal.id, animal.imagen)
+
             Glide.with(binding.root.context)
-                .load(animal.imagen)
-                // Imagen por defecto si la URL falla o está vacía
+                .load(imageUrl)
                 .placeholder(android.R.drawable.ic_menu_gallery)
                 .error(android.R.drawable.ic_menu_report_image)
                 .into(binding.imgAnimal)

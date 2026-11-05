@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.zooapp.databinding.FragmentDetailBinding
+import com.example.zooapp.utils.AnimalImageMapper
 import com.example.zooapp.viewmodel.AnimalViewModel
 
 class DetailFragment : Fragment() {
@@ -31,7 +32,8 @@ class DetailFragment : Fragment() {
             animal?.let {
                 binding.tvDetailName.text = it.nombre
                 binding.tvDetailDescription.text = it.descripcion
-                Glide.with(this).load(it.imagen).into(binding.ivDetailAnimal)
+                val imageUrl = AnimalImageMapper.getReliableImageUrl(it.id, it.imagen)
+                Glide.with(this).load(imageUrl).into(binding.ivDetailAnimal)
 
                 binding.btnEmailInfo.setOnClickListener {
                     val intent = Intent(Intent.ACTION_SENDTO).apply {
